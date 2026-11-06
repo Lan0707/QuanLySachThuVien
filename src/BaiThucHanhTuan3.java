@@ -8,7 +8,7 @@ public class BaiThucHanhTuan3 {
     protected double donGia;
     protected int soLuong;
     protected int loaiSach;
-    protected Scanner sc = new Scanner(System.in);
+    protected static Scanner sc = new Scanner(System.in);
     public BaiThucHanhTuan3 (){}
     public BaiThucHanhTuan3 (String maSach, String tenSach, String tacGia, int namXuatBan, double donGia, int soLuong, int loaiSach){
         this.maSach = maSach;
@@ -78,8 +78,14 @@ public class BaiThucHanhTuan3 {
         this.donGia = this.sc.nextDouble();
         System.out.print("Nhap so luong: ");
         this.soLuong = this.sc.nextInt();
+        System.out.println("\n CHON LOAI SACH ");
+        System.out.println("1. Sach giao khoa");
+        System.out.println("2. Sach tham khao");
+        System.out.println("3. Sach chuyen nganh");
+        System.out.println("4. Sach khac");
         System.out.print("Nhap loai sach: ");
         this.loaiSach = this.sc.nextInt();
+        sc.nextLine();
     }
     public void XUAT(){
         System.out.print("\n Thong tin sach: ");
@@ -101,7 +107,7 @@ public class BaiThucHanhTuan3 {
         return ThanhTien() + PhiVanChuyen();
     }
     public void KiemTraSach() {
-        System.out.println("\n BAI 1: KIEM TRA SACH ");
+        System.out.println("\n KIEM TRA SACH ");
         if (donGia > 0 && soLuong >= 0
                 && namXuatBan > 0 && namXuatBan <= 2026) {
             System.out.println("Sach hop le");
@@ -110,7 +116,7 @@ public class BaiThucHanhTuan3 {
         }
     }
     public void PhanLoaiGia() {
-        System.out.println("\n BAI 2: PHAN LOAI GIA ");
+        System.out.println("\n PHAN LOAI GIA ");
         if (donGia < 50000) {
             System.out.println("Sach gia thap");
         } else if (donGia <= 100000) {
@@ -122,7 +128,7 @@ public class BaiThucHanhTuan3 {
         }
     }
     public void PhanLoaiTonKho() {
-        System.out.println("\n BAI 3: PHAN LOAI TON KHO ");
+        System.out.println("\n PHAN LOAI TON KHO ");
         if (soLuong == 0) {
             System.out.println("Het sach");
         } else if (soLuong <= 5) {
@@ -134,11 +140,6 @@ public class BaiThucHanhTuan3 {
         }
     }
     public void ChonLoaiSach() {
-        System.out.println("\n BAI 4: CHON LOAI SACH ");
-        System.out.println("1. Sach giao khoa");
-        System.out.println("2. Sach tham khao");
-        System.out.println("3. Sach chuyen nganh");
-        System.out.println("4. Sach khac");
         switch (loaiSach) {
             case 1:
                 System.out.println("Sach giao khoa");
@@ -156,18 +157,79 @@ public class BaiThucHanhTuan3 {
                 System.out.println("Loai sach khong hop le");
         }
     }
-    public static void main(String[] args){
-        BaiThucHanhTuan3 sach = new BaiThucHanhTuan3();
-        sach.NHAP();
-        sach.XUAT();
-        System.out.println("\n Ket qua: ");
-        System.out.println("Thanh tien = " + sach.ThanhTien());
-        System.out.println("Phi van chuyen = " + sach.PhiVanChuyen());
-        System.out.println("Tong tien nhap = " + sach.TongTienNhap());
-        sach.KiemTraSach();
-        sach.PhanLoaiGia();
-        sach.PhanLoaiTonKho();
-        sach.ChonLoaiSach();
-        sach.sc.close();
+    public void XuatDanhSach(BaiThucHanhTuan3[] dsSach, int n){
+        for (int i = 0; i < n; i++) {
+            System.out.println("\n SACH THU " + (i + 1) );
+            dsSach[i].XUAT();
+        }
     }
-}
+    public void ThongKe(BaiThucHanhTuan3[] dsSach, int n){
+        int tongSoLuong = 0;
+        double tongGiaTri = 0;
+        for (int i = 0; i < n; i++) {
+            tongSoLuong += dsSach[i].getsoLuong();
+            tongGiaTri += dsSach[i].ThanhTien();
+        }
+        System.out.println("\n THONG KE SACH ");
+        System.out.println("Tong so luong sach: " + tongSoLuong);
+        System.out.println("Tong gia tri sach: " + tongGiaTri);
+    }
+    public void TimSach(BaiThucHanhTuan3[] dsSach, int n) {
+        System.out.print("Nhap ma sach can tim: ");
+        String maCanTim = sc.nextLine();
+        boolean timThay = false;
+        for (int i = 0; i < n; i++) {
+            if (dsSach[i].getmaSach().equalsIgnoreCase(maCanTim)) {
+                System.out.println("\nTim thay sach!");
+                dsSach[i].XUAT();
+                timThay = true;
+                break;
+            }
+        }
+        if (timThay == false) {
+            System.out.println("Khong tim thay sach!");
+        }
+    }
+    public static void main(String[] args){
+        System.out.print("Nhap so luong sach: ");
+        int n = sc.nextInt();
+        sc.nextLine();
+        BaiThucHanhTuan3[] dsSach = new BaiThucHanhTuan3[n];
+        for (int i = 0; i < n; i++) {
+            System.out.println("\n NHAP SACH THU " + (i + 1) );
+            dsSach[i] = new BaiThucHanhTuan3();
+            dsSach[i].NHAP();
+            dsSach[i].KiemTraSach();
+            dsSach[i].PhanLoaiGia();
+            dsSach[i].PhanLoaiTonKho();
+            dsSach[i].ChonLoaiSach();
+        }
+        int chon;
+        do {
+            System.out.println("\n MENU QUAN LY THU VIEN ");
+            System.out.println("1. Xuat danh sach sach");
+            System.out.println("2. Thong ke so luong va gia tri sach");
+            System.out.println("3. Tim sach theo ma");
+            System.out.println("0. Thoat\n");
+            System.out.print("Nhap lua chon: ");
+            chon = sc.nextInt();
+            sc.nextLine();
+            switch (chon) {
+                case 1:
+                    dsSach[0].XuatDanhSach(dsSach, n);
+                    break;
+                case 2:
+                    dsSach[0].ThongKe(dsSach, n);
+                    break;
+                case 3:
+                    dsSach[0].TimSach(dsSach, n);
+                    break;
+                case 0:
+                    System.out.println("Thoat chuong trinh!");
+                    break;
+                default:
+                    System.out.println("Lua chon khong hop le!");
+            }
+        } while (chon != 0);
+    }
+};
