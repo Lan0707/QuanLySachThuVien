@@ -1,235 +1,285 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class BaiThucHanhTuan3 {
-    protected String maSach;
-    protected String tenSach;
-    protected String tacGia;
-    protected int namXuatBan;
-    protected double donGia;
-    protected int soLuong;
-    protected int loaiSach;
-    protected static Scanner sc = new Scanner(System.in);
-    public BaiThucHanhTuan3 (){}
-    public BaiThucHanhTuan3 (String maSach, String tenSach, String tacGia, int namXuatBan, double donGia, int soLuong, int loaiSach){
-        this.maSach = maSach;
-        this.tenSach = tenSach;
-        this.tacGia = tacGia;
-        this.namXuatBan = namXuatBan;
-        this.donGia = donGia;
-        this.soLuong = soLuong;
-        this.loaiSach = loaiSach;
+public class BaiThucHanhTuan5 {
+    static Scanner sc = new Scanner(System.in);
+    public static void Mang() {
+        int[] soLuong = new int[5];
+        int tong = 0;
+        int lonNhat = 0;
+        for (int i = 0; i < 5; i++) {
+            System.out.print("Nhap so luong sach thu " + (i + 1) + ": ");
+            soLuong[i] = Integer.parseInt(sc.nextLine());
+            tong += soLuong[i];
+            if (i == 0 || soLuong[i] > lonNhat) {
+                lonNhat = soLuong[i];
+            }
+        }
+        System.out.println("\nDanh sach so luong:");
+        for (int i = 0; i < 5; i++) {
+            System.out.println("Sach thu " + (i + 1) + ": " + soLuong[i]);
+        }
+        System.out.println("Tong so luong: " + tong);
+        System.out.println("So luong lon nhat: " + lonNhat);
     }
-    public String getmaSach(){
-        return maSach;
-    }
-    public String gettenSach(){
-        return tenSach;
-    }
-    public String gettacGia(){
-        return tacGia;
-    }
-    public int getnamXuatBan(){
-        return namXuatBan;
-    }
-    public double getdonGia(){
-        return donGia;
-    }
-    public int getsoLuong(){
-        return soLuong;
-    }
-    public int getloaiSach(){
-        return loaiSach;
-    }
+    public static void LuuMS() {
+        ArrayList<String> danhSachMa = new ArrayList<>();
+        int chon;
+        do {
+            System.out.println("\n QUAN LY MA SACH ");
+            System.out.println("1. Them ma sach");
+            System.out.println("2. Hien thi ma sach");
+            System.out.println("3. Tim ma sach");
+            System.out.println("4. Xoa ma sach");
+            System.out.println("0. Quay lai");
+            System.out.print("Nhap lua chon: ");
+            chon = Integer.parseInt(sc.nextLine());
+            switch (chon) {
+                case 1:
+                    System.out.print("Nhap ma sach: ");
+                    String maThem = sc.nextLine();
+                    if (danhSachMa.contains(maThem)) {
+                        System.out.println("Ma sach da ton tai!");
+                    } else {
+                        danhSachMa.add(maThem);
+                        System.out.println("Them thanh cong!");
+                    }
+                    break;
+                case 2:
+                    if (danhSachMa.isEmpty()) {
+                        System.out.println("Danh sach ma sach dang trong!");
+                    } else {
+                        for (String ma : danhSachMa) {
+                            System.out.println(ma);
+                        }
+                    }
+                    break;
+                case 3:
+                    System.out.print("Nhap ma sach can tim: ");
+                    String maTim = sc.nextLine();
+                    if (danhSachMa.contains(maTim)) {
+                        System.out.println("Tim thay ma sach!");
+                    } else {
+                        System.out.println("Khong tim thay ma sach!");
+                    }
+                    break;
 
-    public void setmaSach(String maSach){
-        this.maSach = maSach;
-    }
-    public void settenSach(String tenSach){
-        this.tenSach = tenSach;
-    }
-    public void settacGia(String tacGia){
-        this.tacGia = tacGia;
-    }
-    public void setnamXuatBan(int namXuatBan){
-        this.namXuatBan = namXuatBan;
-    }
-    public void setdonGia(double donGia){
-        this.donGia = donGia;
-    }
-    public void setsoLuong(int soLuong){
-        this.soLuong = soLuong;
-    }
-    public void setloaiSach(int loaiSach){
-        this.loaiSach = loaiSach;
-    }
+                case 4:
+                    System.out.print("Nhap ma sach can xoa: ");
+                    String maXoa = sc.nextLine();
 
-    public void NHAP(){
-        // BÀI 1: Nhập thông tin sách
-        System.out.print("Nhap thong tin sach: \n");
+                    if (danhSachMa.remove(maXoa)) {
+                        System.out.println("Xoa thanh cong!");
+                    } else {
+                        System.out.println("Ma sach khong ton tai!");
+                    }
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Lua chon khong hop le!");
+            }
+        } while (chon != 0);
+    }
+    static ArrayList<String> danhSachSach = new ArrayList<>();
+    public static int TimViTri(String maSach) {
+        for (int i = 0; i < danhSachSach.size(); i++) {
+            String[] tt = danhSachSach.get(i).split("\\|", -1);
+            if (tt[0].equalsIgnoreCase(maSach)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    public static void ThemSach() {
         System.out.print("Nhap ma sach: ");
-        this.maSach = this.sc.nextLine();
+        String ma = sc.nextLine();
+        if (TimViTri(ma) != -1) {
+            System.out.println("Ma sach da ton tai!");
+            return;
+        }
         System.out.print("Nhap ten sach: ");
-        this.tenSach = this.sc.nextLine();
-        System.out.print("Nhap ten tac gia: ");
-        this.tacGia = this.sc.nextLine();
+        String ten = sc.nextLine();
+        System.out.print("Nhap tac gia: ");
+        String tacGia = sc.nextLine();
         System.out.print("Nhap nam xuat ban: ");
-        this.namXuatBan = this.sc.nextInt();
+        int nam = Integer.parseInt(sc.nextLine());
         System.out.print("Nhap don gia: ");
-        this.donGia = this.sc.nextDouble();
+        double gia = Double.parseDouble(sc.nextLine());
         System.out.print("Nhap so luong: ");
-        this.soLuong = this.sc.nextInt();
-        System.out.println("\n CHON LOAI SACH ");
+        int soLuong = Integer.parseInt(sc.nextLine());
         System.out.println("1. Sach giao khoa");
         System.out.println("2. Sach tham khao");
         System.out.println("3. Sach chuyen nganh");
         System.out.println("4. Sach khac");
         System.out.print("Nhap loai sach: ");
-        this.loaiSach = this.sc.nextInt();
-        sc.nextLine();
-    }
-    public void XUAT(){
-        System.out.print("\n Thong tin sach: ");
-        System.out.println("Ma sach: "+this.maSach);
-        System.out.println("Ten sach: "+this.tenSach);
-        System.out.println("Tac gia: "+this.tacGia);
-        System.out.println("Nam xuat ban: "+this.namXuatBan);
-        System.out.println("Don gia: "+this.donGia);
-        System.out.println("So luong: "+this.soLuong);
-        System.out.println("loai sach: "+this.loaiSach);
-    }
-    public double ThanhTien() {
-        return this.donGia * this.soLuong;
-    }
-    public double PhiVanChuyen() {
-        return ThanhTien() * 0.05;
-    }
-    public double TongTienNhap() {
-        return ThanhTien() + PhiVanChuyen();
-    }
-    public void KiemTraSach() {
-        System.out.println("\n KIEM TRA SACH ");
-        if (donGia > 0 && soLuong >= 0
-                && namXuatBan > 0 && namXuatBan <= 2026) {
-            System.out.println("\nSach hop le");
-        } else {
-            System.out.println("\nSach khong hop le");
+        int loai = Integer.parseInt(sc.nextLine());
+        if (nam <= 0 || gia <= 0 || soLuong < 0 || loai < 1 || loai > 4) {
+            System.out.println("Thong tin sach khong hop le!");
+            return;
         }
+         String sach = ma + "|" + ten + "|" + tacGia + "|" + nam
+                    + "|" + gia + "|" + soLuong + "|" + loai;
+        danhSachSach.add(sach);
+        System.out.println("Them sach thanh cong!");
     }
-    public void PhanLoaiGia() {
-        System.out.println("\n PHAN LOAI GIA ");
-        if (donGia < 50000) {
-            System.out.println("\nSach gia thap");
-        } else if (donGia <= 100000) {
-            System.out.println("\nSach gia trung binh");
-        } else if (donGia <= 200000) {
-            System.out.println("\nSach gia cao");
-        } else {
-            System.out.println("\nSach gia dac biet");
+    public static void HienThiSach() {
+        if (danhSachSach.isEmpty()) {
+            System.out.println("Danh sach sach dang trong!");
+            return;
         }
-    }
-    public void PhanLoaiTonKho() {
-        System.out.println("\n PHAN LOAI TON KHO ");
-        if (soLuong == 0) {
-            System.out.println("\nHet sach");
-        } else if (soLuong <= 5) {
-            System.out.println("\nSap het");
-        } else if (soLuong <= 20) {
-            System.out.println("\nCon it");
-        } else {
-            System.out.println("\nCon nhieu");
-        }
-    }
-    public void ChonLoaiSach() {
-        switch (loaiSach) {
-            case 1:
-                System.out.println("\nSach giao khoa");
-                break;
-            case 2:
-                System.out.println("\nSach tham khao");
-                break;
-            case 3:
-                System.out.println("\nSach chuyen nganh");
-                break;
-            case 4:
-                System.out.println("\nSach khac");
-                break;
-            default:
-                System.out.println("\nLoai sach khong hop le");
-        }
-    }
-    public void XuatDanhSach(BaiThucHanhTuan3[] dsSach, int n){
-        for (int i = 0; i < n; i++) {
+         for (int i = 0; i < danhSachSach.size(); i++) {
+            String[] tt = danhSachSach.get(i).split("\\|", -1);
             System.out.println("\n SACH THU " + (i + 1) );
-            dsSach[i].XUAT();
-        }
-    }
-    public void ThongKe(BaiThucHanhTuan3[] dsSach, int n){
-        int tongSoLuong = 0;
-        double tongGiaTri = 0;
-        for (int i = 0; i < n; i++) {
-            tongSoLuong += dsSach[i].getsoLuong();
-            tongGiaTri += dsSach[i].ThanhTien();
-        }
-        System.out.println("\n THONG KE SACH ");
-        System.out.println("Tong so luong sach: " + tongSoLuong);
-        System.out.println("Tong gia tri sach: " + tongGiaTri);
-    }
-    public void TimSach(BaiThucHanhTuan3[] dsSach, int n) {
-        System.out.print("Nhap ma sach can tim: ");
-        String maCanTim = sc.nextLine();
-        boolean timThay = false;
-        for (int i = 0; i < n; i++) {
-            if (dsSach[i].getmaSach().equalsIgnoreCase(maCanTim)) {
-                System.out.println("\nTim thay sach!");
-                dsSach[i].XUAT();
-                timThay = true;
-                break;
+            System.out.println("Ma sach: " + tt[0]);
+            System.out.println("Ten sach: " + tt[1]);
+            System.out.println("Tac gia: " + tt[2]);
+            System.out.println("Nam xuat ban: " + tt[3]);
+            System.out.println("Don gia: " + tt[4]);
+            System.out.println("So luong: " + tt[5]);
+            switch (Integer.parseInt(tt[6])) {
+                case 1:
+                    System.out.println("Loai sach: Sach giao khoa");
+                    break;
+                case 2:
+                    System.out.println("Loai sach: Sach tham khao");
+                    break;
+                case 3:
+                    System.out.println("Loai sach: Sach chuyen nganh");
+                    break;
+                case 4:
+                    System.out.println("Loai sach: Sach khac");
+                    break;
             }
         }
-        if (timThay == false) {
+    }
+    public static void TimSach() {
+        System.out.print("Nhap ma sach can tim: ");
+        String ma = sc.nextLine();
+        int viTri = TimViTri(ma);
+        if (viTri == -1) {
             System.out.println("Khong tim thay sach!");
+        } 
+        else {
+            String sachTim = danhSachSach.get(viTri);
+            String[] tt = sachTim.split("\\|", -1);
+
+            System.out.println("Ma sach: " + tt[0]);
+            System.out.println("Ten sach: " + tt[1]);
+            System.out.println("Tac gia: " + tt[2]);
+            System.out.println("Nam xuat ban: " + tt[3]);
+            System.out.println("Don gia: " + tt[4]);
+            System.out.println("So luong: " + tt[5]);
+            System.out.println("Loai sach: " + tt[6]);
         }
     }
-    public static void main(String[] args){
-        System.out.print("Nhap so luong sach: ");
-        int n = sc.nextInt();
-        sc.nextLine();
-        BaiThucHanhTuan3[] dsSach = new BaiThucHanhTuan3[n];
-        for (int i = 0; i < n; i++) {
-            System.out.println("\n NHAP SACH THU " + (i + 1) );
-            dsSach[i] = new BaiThucHanhTuan3();
-            dsSach[i].NHAP();
-            dsSach[i].KiemTraSach();
-            dsSach[i].PhanLoaiGia();
-            dsSach[i].PhanLoaiTonKho();
-            dsSach[i].ChonLoaiSach();
+    public static void XoaSach() {
+        System.out.print("Nhap ma sach can xoa: ");
+        String ma = sc.nextLine();
+        int viTri = TimViTri(ma);
+        if (viTri == -1) {
+            System.out.println("Khong tim thay sach!");
+        } else {
+            danhSachSach.remove(viTri);
+            System.out.println("Xoa sach thanh cong!");
         }
+    }
+    public static void SuaSach() {
+        System.out.print("Nhap ma sach can sua: ");
+        String ma = sc.nextLine();
+        int viTri = TimViTri(ma);
+        if (viTri == -1) {
+            System.out.println("Khong tim thay sach!");
+            return;
+        }
+        String[] tt = danhSachSach.get(viTri).split("\\|", -1);
+        System.out.print("Nhap ten sach moi: ");
+        tt[1] = sc.nextLine();
+        System.out.print("Nhap tac gia moi: ");
+        tt[2] = sc.nextLine();
+        System.out.print("Nhap nam xuat ban moi: ");
+        tt[3] = sc.nextLine();
+        System.out.print("Nhap don gia moi: ");
+        tt[4] = sc.nextLine();
+        System.out.print("Nhap so luong moi: ");
+        tt[5] = sc.nextLine();
+        System.out.println("1. Sach giao khoa");
+        System.out.println("2. Sach tham khao");
+        System.out.println("3. Sach chuyen nganh");
+        System.out.println("4. Sach khac");
+        System.out.print("Nhap loai sach moi: ");
+        tt[6] = sc.nextLine();
+        int nam = Integer.parseInt(tt[3]);
+        double gia = Double.parseDouble(tt[4]);
+        int soLuong = Integer.parseInt(tt[5]);
+        int loai = Integer.parseInt(tt[6]);
+        if (nam <= 0 || gia <= 0 || soLuong < 0 || loai < 1 || loai > 4) {
+            System.out.println("Thong tin moi khong hop le, khong cap nhat!");
+            return;
+        }
+         danhSachSach.set(viTri, String.join("|", tt));
+        System.out.println("Sua sach thanh cong!");
+    }
+    public static void TongSoLuong() {
+        int tong = 0;
+        for (int i = 0; i < danhSachSach.size(); i++) {
+            String[] tt = danhSachSach.get(i).split("\\|", -1);
+            tong += Integer.parseInt(tt[5]);
+        }
+        System.out.println("Tong so luong sach: " + tong);
+    }
+    public static void TongGiaTri() {
+        double tong = 0;
+        for (int i = 0; i < danhSachSach.size(); i++) {
+            String[] tt = danhSachSach.get(i).split("\\|", -1);
+            double donGia = Double.parseDouble(tt[4]);
+            int soLuong = Integer.parseInt(tt[5]);
+            tong += donGia * soLuong;
+        }
+        System.out.println("Tong gia tri sach: " + tong);
+    }
+    public static void main(String[] args) {
         int chon;
         do {
             System.out.println("\n MENU QUAN LY THU VIEN ");
-            System.out.println("1. Xuat danh sach sach");
-            System.out.println("2. Thong ke so luong va gia tri sach");
-            System.out.println("3. Tim sach theo ma");
-            System.out.println("0. Thoat\n");
+            System.out.println("1. Them sach");
+            System.out.println("2. Hien thi sach");
+            System.out.println("3. Tim sach");
+            System.out.println("4. Xoa sach");
+            System.out.println("5. Sua sach");
+            System.out.println("6. Tinh tong so luong");
+            System.out.println("7. Tinh tong gia tri");
+            System.out.println("8. Thoat\n");
             System.out.print("Nhap lua chon: ");
-            chon = sc.nextInt();
-            sc.nextLine();
+            chon = Integer.parseInt(sc.nextLine());
             switch (chon) {
                 case 1:
-                    dsSach[0].XuatDanhSach(dsSach, n);
+                    ThemSach();
                     break;
                 case 2:
-                    dsSach[0].ThongKe(dsSach, n);
+                    HienThiSach();
                     break;
                 case 3:
-                    dsSach[0].TimSach(dsSach, n);
+                    TimSach();
                     break;
-                case 0:
-                    System.out.println("\nThoat chuong trinh!");
+                case 4:
+                    XoaSach();
+                    break;
+                case 5:
+                    SuaSach();
+                    break;
+                case 6:
+                    TongSoLuong();
+                    break;
+                case 7:
+                    TongGiaTri();
+                    break;
+                case 8:
+                    System.out.println("Thoat chuong trinh!");
                     break;
                 default:
-                    System.out.println("\nLua chon khong hop le!");
+                    System.out.println("Lua chon khong hop le!");
             }
-        } while (chon != 0);
+        } while (chon != 8);
     }
-};
+}
