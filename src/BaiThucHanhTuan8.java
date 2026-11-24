@@ -1,14 +1,14 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-class Sach {
+class Sach8 {
     private String maSach;
     private String tieuDe;
     private String tacGia;
     private int namXuatBan;
     private int soLuong;
-    public Sach() {}
-    public Sach(String maSach, String tieuDe, String tacGia,
+    public Sach8() {}
+    public Sach8(String maSach, String tieuDe, String tacGia,
                 int namXuatBan, int soLuong) {
         this.maSach = maSach;
         this.tieuDe = tieuDe;
@@ -76,15 +76,15 @@ class Sach {
         System.out.println("So luong: " + getSoLuong());
     }
 }
-public class BaiThucHanhTuan7 {
+public class BaiThucHanhTuan8 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        ArrayList<Sach> danhSachSach = new ArrayList<>();
+        ArrayList<Sach8> danhSachSach = new ArrayList<>();
         System.out.print("Nhap so luong sach: ");
         int n = Integer.parseInt(sc.nextLine());
         for (int i = 0; i < n; i++) {
             System.out.println("\nNHAP SACH THU " + (i + 1));
-            Sach sach = new Sach();
+            Sach8 sach = new Sach8();
             sach.NHAP(sc);
             danhSachSach.add(sach);
         }
@@ -95,4 +95,4 @@ public class BaiThucHanhTuan7 {
             danhSachSach.get(i).HienThiTT();
         }
     }
-}
+} 

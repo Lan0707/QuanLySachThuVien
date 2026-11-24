@@ -67,24 +67,24 @@ public class BaiThucHanhTuan3 {
         // BÀI 1: Nhập thông tin sách
         System.out.print("Nhap thong tin sach: \n");
         System.out.print("Nhap ma sach: ");
-        this.maSach = this.sc.nextLine();
+        this.maSach = sc.nextLine();
         System.out.print("Nhap ten sach: ");
-        this.tenSach = this.sc.nextLine();
+        this.tenSach = sc.nextLine();
         System.out.print("Nhap ten tac gia: ");
-        this.tacGia = this.sc.nextLine();
+        this.tacGia = sc.nextLine();
         System.out.print("Nhap nam xuat ban: ");
-        this.namXuatBan = this.sc.nextInt();
+        this.namXuatBan = sc.nextInt();
         System.out.print("Nhap don gia: ");
-        this.donGia = this.sc.nextDouble();
+        this.donGia = sc.nextDouble();
         System.out.print("Nhap so luong: ");
-        this.soLuong = this.sc.nextInt();
+        this.soLuong = sc.nextInt();
         System.out.println("\n CHON LOAI SACH ");
         System.out.println("1. Sach giao khoa");
         System.out.println("2. Sach tham khao");
         System.out.println("3. Sach chuyen nganh");
         System.out.println("4. Sach khac");
         System.out.print("Nhap loai sach: ");
-        this.loaiSach = this.sc.nextInt();
+        this.loaiSach = sc.nextInt();
         sc.nextLine();
     }
     public void XUAT(){
